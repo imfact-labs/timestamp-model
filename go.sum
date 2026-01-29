@@ -3,6 +3,7 @@ github.com/Masterminds/semver/v3 v3.4.0 h1:Zog+i5UMtVoCU8oKka5P7i9q9HgrJeGzI9SA1
 github.com/Masterminds/semver/v3 v3.4.0/go.mod h1:4V+yj/TJE1HU9XfppCwVMZq3I84lprf4nC11bSS5beM=
 github.com/ProtoconNet/mitum-currency/v3 v3.0.0-alpha.0.20251105025257-22072f1f4b39 h1:bljS2UbOjsBsaulW67u7Xvmq2Yhl4G7ppXe0DWiLC7M=
 github.com/ProtoconNet/mitum-currency/v3 v3.0.0-alpha.0.20251105025257-22072f1f4b39/go.mod h1:dJQyIwQg6LY74C4PGSgCxbht3GyjVjzSmwJb8O1DzVk=
+github.com/ProtoconNet/mitum-currency/v3 v3.0.0-alpha.0.20260129023434-df0bfa51458c/go.mod h1:r5C1wijiAOrQOfa7tndgxiBswrzshHBo8FK5bTTpCWY=
 github.com/ProtoconNet/mitum2 v0.0.0-20251029064552-48aef1088f5f h1:R2DyTWMObnorDRegscXjJ5sBYuZD1Fni80XGpa1PuNo=
 github.com/ProtoconNet/mitum2 v0.0.0-20251029064552-48aef1088f5f/go.mod h1:67qHJ1CeusaaVuv7wGb+zUh51Yd0mpbyjWrnKrHhcMs=
 github.com/aead/siphash v1.0.1/go.mod h1:Nywa3cDsYNNK3gaciGTWPwHt0wlpNV15vwmswBAUSII=
