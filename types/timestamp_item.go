@@ -1,7 +1,7 @@
 package types
 
 import (
-	currencytypes "github.com/ProtoconNet/mitum-currency/v3/types"
+	ctypes "github.com/ProtoconNet/mitum-currency/v3/types"
 	"github.com/ProtoconNet/mitum2/util"
 	"github.com/ProtoconNet/mitum2/util/hint"
 	"github.com/pkg/errors"
@@ -45,7 +45,7 @@ func (t Item) IsValid([]byte) error {
 		return errors.Errorf("invalid projectID length %v < 1 or > %v", len(t.projectID), MaxProjectIDLen)
 	}
 
-	if !currencytypes.ReValidSpcecialCh.Match([]byte(t.projectID)) {
+	if !ctypes.ReValidSpcecialCh.Match([]byte(t.projectID)) {
 		return util.ErrInvalid.Errorf("projectID %v must match regex `^[^\\s:/?#\\[\\]$@]*$`", t.projectID)
 	}
 

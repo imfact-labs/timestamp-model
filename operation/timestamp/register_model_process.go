@@ -5,10 +5,10 @@ import (
 	"sync"
 
 	"github.com/ProtoconNet/mitum-currency/v3/common"
-	cstate "github.com/ProtoconNet/mitum-currency/v3/state"
-	cestate "github.com/ProtoconNet/mitum-currency/v3/state/extension"
-	currencytypes "github.com/ProtoconNet/mitum-currency/v3/types"
-	"github.com/ProtoconNet/mitum-timestamp/state"
+	"github.com/ProtoconNet/mitum-currency/v3/state"
+	statee "github.com/ProtoconNet/mitum-currency/v3/state/extension"
+	ctypes "github.com/ProtoconNet/mitum-currency/v3/types"
+	statets "github.com/ProtoconNet/mitum-timestamp/state"
 	"github.com/ProtoconNet/mitum-timestamp/types"
 	"github.com/ProtoconNet/mitum2/base"
 	"github.com/ProtoconNet/mitum2/util"
@@ -25,7 +25,7 @@ type RegisterModelProcessor struct {
 	*base.BaseOperationProcessor
 }
 
-func NewRegisterModelProcessor() currencytypes.GetNewProcessor {
+func NewRegisterModelProcessor() ctypes.GetNewProcessor {
 	return func(
 		height base.Height,
 		getStateFunc base.GetStateFunc,
@@ -69,7 +69,7 @@ func (opp *RegisterModelProcessor) PreProcess(
 				Errorf("%v", err)), nil
 	}
 
-	if found, _ := cstate.CheckNotExistsState(state.DesignStateKey(fact.Contract()), getStateFunc); found {
+	if found, _ := state.CheckNotExistsState(statets.DesignStateKey(fact.Contract()), getStateFunc); found {
 		return ctx, base.NewBaseOperationProcessReasonError(
 			common.ErrMPreProcess.
 				Wrap(common.ErrMServiceE).Errorf("timestamp service for contract account %v",
@@ -94,20 +94,20 @@ func (opp *RegisterModelProcessor) Process(
 		return nil, base.NewBaseOperationProcessReasonError("invalid timestamp design, %q; %w", fact.Contract(), err), nil
 	}
 
-	sts = append(sts, cstate.NewStateMergeValue(
-		state.DesignStateKey(fact.Contract()),
-		state.NewDesignStateValue(design),
+	sts = append(sts, state.NewStateMergeValue(
+		statets.DesignStateKey(fact.Contract()),
+		statets.NewDesignStateValue(design),
 	))
 
-	st, _ := cstate.ExistsState(cestate.StateKeyContractAccount(fact.Contract()), "contract account", getStateFunc)
-	ca, _ := cestate.StateContractAccountValue(st)
+	st, _ := state.ExistsState(statee.StateKeyContractAccount(fact.Contract()), "contract account", getStateFunc)
+	ca, _ := statee.StateContractAccountValue(st)
 	ca.SetActive(true)
 	h := op.Hint()
 	ca.SetRegisterOperation(&h)
 
-	sts = append(sts, cstate.NewStateMergeValue(
-		cestate.StateKeyContractAccount(fact.Contract()),
-		cestate.NewContractAccountStateValue(ca),
+	sts = append(sts, state.NewStateMergeValue(
+		statee.StateKeyContractAccount(fact.Contract()),
+		statee.NewContractAccountStateValue(ca),
 	))
 
 	return sts, nil, nil
