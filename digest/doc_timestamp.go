@@ -1,13 +1,13 @@
 package digest
 
 import (
-	mongodb "github.com/ProtoconNet/mitum-currency/v3/digest/mongodb"
-	bson "github.com/ProtoconNet/mitum-currency/v3/digest/util/bson"
-	cstate "github.com/ProtoconNet/mitum-currency/v3/state"
-	"github.com/ProtoconNet/mitum-timestamp/state"
-	"github.com/ProtoconNet/mitum-timestamp/types"
-	"github.com/ProtoconNet/mitum2/base"
-	"github.com/ProtoconNet/mitum2/util/encoder"
+	mongodb "github.com/imfact-labs/currency-model/digest/mongodb"
+	cstate "github.com/imfact-labs/currency-model/state"
+	bson "github.com/imfact-labs/currency-model/utils/bsonenc"
+	"github.com/imfact-labs/mitum2/base"
+	"github.com/imfact-labs/mitum2/util/encoder"
+	"github.com/imfact-labs/timestamp-model/state"
+	"github.com/imfact-labs/timestamp-model/types"
 )
 
 type DesignDoc struct {

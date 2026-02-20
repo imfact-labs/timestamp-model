@@ -4,14 +4,14 @@ import (
 	"context"
 	"sync"
 
-	"github.com/ProtoconNet/mitum-currency/v3/common"
-	"github.com/ProtoconNet/mitum-currency/v3/state"
-	statee "github.com/ProtoconNet/mitum-currency/v3/state/extension"
-	ctypes "github.com/ProtoconNet/mitum-currency/v3/types"
-	statets "github.com/ProtoconNet/mitum-timestamp/state"
-	"github.com/ProtoconNet/mitum-timestamp/types"
-	"github.com/ProtoconNet/mitum2/base"
-	"github.com/ProtoconNet/mitum2/util"
+	"github.com/imfact-labs/currency-model/common"
+	"github.com/imfact-labs/currency-model/state"
+	statee "github.com/imfact-labs/currency-model/state/extension"
+	ctypes "github.com/imfact-labs/currency-model/types"
+	"github.com/imfact-labs/mitum2/base"
+	"github.com/imfact-labs/mitum2/util"
+	statets "github.com/imfact-labs/timestamp-model/state"
+	"github.com/imfact-labs/timestamp-model/types"
 	"github.com/pkg/errors"
 )
 
@@ -58,23 +58,27 @@ func (opp *RegisterModelProcessor) PreProcess(
 	fact, ok := op.Fact().(RegisterModelFact)
 	if !ok {
 		return ctx, base.NewBaseOperationProcessReasonError(
+			"%v",
 			common.ErrMPreProcess.
 				Wrap(common.ErrMTypeMismatch).
-				Errorf("expected %T, not %T", RegisterModelFact{}, op.Fact())), nil
+				Errorf("expected %T, not %T", RegisterModelFact{}, op.Fact()),
+		), nil
 	}
 
 	if err := fact.IsValid(nil); err != nil {
 		return ctx, base.NewBaseOperationProcessReasonError(
-			common.ErrMPreProcess.
-				Errorf("%v", err)), nil
+			"%v",
+			common.ErrMPreProcess.Errorf("%v", err),
+		), nil
 	}
 
 	if found, _ := state.CheckNotExistsState(statets.DesignStateKey(fact.Contract()), getStateFunc); found {
 		return ctx, base.NewBaseOperationProcessReasonError(
+			"%v",
 			common.ErrMPreProcess.
-				Wrap(common.ErrMServiceE).Errorf("timestamp service for contract account %v",
-				fact.Contract(),
-			)), nil
+				Wrap(common.ErrMServiceE).
+				Errorf("timestamp service for contract account %v", fact.Contract()),
+		), nil
 	}
 
 	return ctx, nil, nil

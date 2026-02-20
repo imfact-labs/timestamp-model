@@ -1,12 +1,12 @@
 package digest
 
 import (
-	cdigest "github.com/ProtoconNet/mitum-currency/v3/digest"
-	utilc "github.com/ProtoconNet/mitum-currency/v3/digest/util"
-	"github.com/ProtoconNet/mitum-timestamp/state"
-	"github.com/ProtoconNet/mitum-timestamp/types"
-	"github.com/ProtoconNet/mitum2/base"
-	utilm "github.com/ProtoconNet/mitum2/util"
+	cdigest "github.com/imfact-labs/currency-model/digest"
+	utilc "github.com/imfact-labs/currency-model/digest/util"
+	"github.com/imfact-labs/mitum2/base"
+	utilm "github.com/imfact-labs/mitum2/util"
+	"github.com/imfact-labs/timestamp-model/state"
+	"github.com/imfact-labs/timestamp-model/types"
 	"github.com/pkg/errors"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
@@ -76,7 +76,7 @@ func TimestampItem(db *cdigest.Database, contract, project string, idx uint64) (
 		},
 		opt,
 	); err != nil {
-		return types.Item{}, nil, utilm.ErrNotFound.WithMessage(err, "timestamp item by contract account %s, project %s, timestamp idx %s", contract, project, idx)
+		return types.Item{}, nil, utilm.ErrNotFound.WithMessage(err, "timestamp item by contract account %s, project %s, timestamp idx %d", contract, project, idx)
 	}
 
 	if st != nil {

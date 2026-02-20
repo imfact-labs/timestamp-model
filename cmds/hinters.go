@@ -1,11 +1,11 @@
 package cmds
 
 import (
-	ccmds "github.com/ProtoconNet/mitum-currency/v3/cmds"
-	"github.com/ProtoconNet/mitum-timestamp/operation/timestamp"
-	"github.com/ProtoconNet/mitum-timestamp/state"
-	"github.com/ProtoconNet/mitum-timestamp/types"
-	"github.com/ProtoconNet/mitum2/util/encoder"
+	ccmds "github.com/imfact-labs/currency-model/app/cmds"
+	"github.com/imfact-labs/mitum2/util/encoder"
+	"github.com/imfact-labs/timestamp-model/operation/timestamp"
+	"github.com/imfact-labs/timestamp-model/state"
+	"github.com/imfact-labs/timestamp-model/types"
 	"github.com/pkg/errors"
 )
 

@@ -4,13 +4,13 @@ import (
 	"context"
 	"sync"
 
-	"github.com/ProtoconNet/mitum-currency/v3/common"
-	cstate "github.com/ProtoconNet/mitum-currency/v3/state"
-	ctypes "github.com/ProtoconNet/mitum-currency/v3/types"
-	"github.com/ProtoconNet/mitum-timestamp/state"
-	"github.com/ProtoconNet/mitum-timestamp/types"
-	"github.com/ProtoconNet/mitum2/base"
-	"github.com/ProtoconNet/mitum2/util"
+	"github.com/imfact-labs/currency-model/common"
+	cstate "github.com/imfact-labs/currency-model/state"
+	ctypes "github.com/imfact-labs/currency-model/types"
+	"github.com/imfact-labs/mitum2/base"
+	"github.com/imfact-labs/mitum2/util"
+	"github.com/imfact-labs/timestamp-model/state"
+	"github.com/imfact-labs/timestamp-model/types"
 )
 
 var issueProcessorPool = sync.Pool{
@@ -65,23 +65,27 @@ func (opp *IssueProcessor) PreProcess(
 	fact, ok := op.Fact().(IssueFact)
 	if !ok {
 		return ctx, base.NewBaseOperationProcessReasonError(
+			"%v",
 			common.ErrMPreProcess.
 				Wrap(common.ErrMTypeMismatch).
-				Errorf("expected %T, not %T", IssueFact{}, op.Fact())), nil
+				Errorf("expected %T, not %T", IssueFact{}, op.Fact()),
+		), nil
 	}
 
 	if err := fact.IsValid(nil); err != nil {
 		return ctx, base.NewBaseOperationProcessReasonError(
-			common.ErrMPreProcess.
-				Errorf("%v", err)), nil
+			"%v",
+			common.ErrMPreProcess.Errorf("%v", err),
+		), nil
 	}
 
 	if err := cstate.CheckExistsState(state.DesignStateKey(fact.Contract()), getStateFunc); err != nil {
 		return nil, base.NewBaseOperationProcessReasonError(
+			"%v",
 			common.ErrMPreProcess.
-				Wrap(common.ErrMServiceNF).Errorf("timestamp service state for contract account %v",
-				fact.Contract(),
-			)), nil
+				Wrap(common.ErrMServiceNF).
+				Errorf("timestamp service state for contract account %v", fact.Contract()),
+		), nil
 	}
 
 	k := state.LastIdxStateKey(fact.Contract(), fact.ProjectId())

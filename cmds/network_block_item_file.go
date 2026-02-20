@@ -8,13 +8,13 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/ProtoconNet/mitum2/base"
-	"github.com/ProtoconNet/mitum2/isaac"
-	isaacblock "github.com/ProtoconNet/mitum2/isaac/block"
-	"github.com/ProtoconNet/mitum2/launch"
-	"github.com/ProtoconNet/mitum2/util"
-	"github.com/ProtoconNet/mitum2/util/encoder"
 	"github.com/alecthomas/kong"
+	"github.com/imfact-labs/mitum2/base"
+	"github.com/imfact-labs/mitum2/isaac"
+	isaacblock "github.com/imfact-labs/mitum2/isaac/block"
+	"github.com/imfact-labs/mitum2/launch"
+	"github.com/imfact-labs/mitum2/util"
+	"github.com/imfact-labs/mitum2/util/encoder"
 	"github.com/pkg/errors"
 )
 
@@ -157,7 +157,7 @@ func (cmd *NetworkClientBlockItemFilesCommand) downloadBlockItemFiles(
 	case err != nil:
 		return nil, err
 	case !found:
-		kctx.Errorf(util.ErrNotFound.Errorf("block item files").Error())
+		kctx.Errorf("%v", util.ErrNotFound.Errorf("block item files"))
 		kctx.Exit(2)
 	}
 
@@ -210,7 +210,7 @@ func (cmd *NetworkClientBlockItemFilesCommand) downloadBlockItems(
 			case err != nil:
 				return err
 			case !found:
-				kctx.Errorf(util.ErrNotFound.Errorf("block item file, %q", t.String()).Error())
+				kctx.Errorf("%v", util.ErrNotFound.Errorf("block item file, %q", t.String()))
 				kctx.Exit(2)
 			}
 
@@ -386,7 +386,7 @@ func (cmd *NetworkClientBlockItemFileCommand) Run(
 	case err != nil:
 		return err
 	case !found:
-		kctx.Errorf(util.ErrNotFound.Errorf("block item file").Error())
+		kctx.Errorf("%v", util.ErrNotFound.Errorf("block item file"))
 		kctx.Exit(2)
 	}
 
